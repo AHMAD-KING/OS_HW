@@ -20,7 +20,7 @@ import static java.lang.Runtime.*;
 import java.nio.channels.FileChannel.MapMode;
 import java.util.EnumSet;
 
-public class synchronized {
+public class Main {
     static int N = 152 + 500; // my id is 11820152
     static int pid;
     static String name = "shared_mem";
@@ -59,7 +59,7 @@ public class synchronized {
 
         static {
             try {
-                Handler handler = new FileHandler("logs.log"); // log file name
+                Handler handler = new FileHandler("logs2.log"); // log file name
                 LOGGER.addHandler(handler);
                 LOGGER.setUseParentHandlers(false);
                 LOGGER.setLevel(Level.ALL);
@@ -76,14 +76,16 @@ public class synchronized {
         public void run() {
     Tid = (int) Thread.currentThread().getId();
     synchronized (buffer) {
-        int value = buffer.getInt(0);
+        
         System.out.printf("I am Thread %d; about to go to sleep for %d nanoseconds \n", Tid, Tid % 10);
         try {
             Thread.sleep(Tid % 10);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        int value ;
         for (int i = 0; i < N; i++) {
+            value = buffer.getInt(0);
             LOGGER.info(String.format("I am Thread %d, about to increment the counter, old value was %d\n", Tid, buffer.getInt(0)));
             buffer.putInt(0, value + 1);
             buffer.force();
