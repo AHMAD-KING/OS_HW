@@ -24,6 +24,18 @@ public class Main {
     static int pid;
     static String name = "shared_mem";
     static int SIZE = N * Integer.SIZE / 8;
+static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    static {
+            try {
+                Handler handler = new FileHandler("outputUnsynchronized.log"); // log file name
+                LOGGER.addHandler(handler);
+                LOGGER.setUseParentHandlers(false);
+                LOGGER.setLevel(Level.ALL);
+                handler.setLevel(Level.ALL);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     public static void main(String[] args) {
         try {
@@ -42,7 +54,8 @@ public class Main {
                 thread[i].join();
             }
             int expected = N * N ;
-            System.out.printf("Expected value is %d, Thread value %d\n", expected, buffer.getInt(0));
+		LOGGER.info(String.format("Expected value is %d, Thread value %d\n", expected, buffer.getInt(0)));
+            //System.out.printf("Expected value is %d, Thread value %d\n", expected, buffer.getInt(0));
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -58,7 +71,7 @@ public class Main {
 
         static {
             try {
-                Handler handler = new FileHandler("logs.log"); // log file name
+                Handler handler = new FileHandler("logsUnsynchronized.log"); // log file name
                 LOGGER.addHandler(handler);
                 LOGGER.setUseParentHandlers(false);
                 LOGGER.setLevel(Level.ALL);
