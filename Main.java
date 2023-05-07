@@ -82,6 +82,8 @@ public class Main {
                 e.printStackTrace();
             }
             for (int i = 0; i < N; i++) {
+		    Tid = (int) Thread.currentThread().getId();
+		    value = buffer.getInt(0);
                 LOGGER.info(String.format("I am Thread %d, about to increment the counter, old value was %d\n", Tid, buffer.getInt(0)));
                 buffer.putInt(0, value + 1);
                 buffer.force();
