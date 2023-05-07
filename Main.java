@@ -75,7 +75,7 @@ public class Main {
         public void run() {
             Tid = (int) Thread.currentThread().getId();
             int value = buffer.getInt(0);
-            //System.out.printf("I am Thread %d; about to go to sleep for %d nanoseconds \n", Tid, Tid % 10);
+            System.out.printf("I am Thread %d; about to go to sleep for %d nanoseconds \n", Tid, Tid % 10);
             try {
                 Thread.sleep(Tid % 10);
             } catch (InterruptedException e) {
