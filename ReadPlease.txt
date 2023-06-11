@@ -1,2 +1,1 @@
-I solved it using solution 2 beacuse 
-my id is 11820152 % 3 = 2. solving it using static synchronization. 
+
